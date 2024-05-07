@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.naver.www.admin.dto.AdminDTO"
+			alias="admin" />
+		<typeAlias type="com.naver.www.restaurant.dto.RestaurantDTO"
+			alias="restaurant" />
+		<typeAlias type="com.naver.www.user.dto.UserDTO"
+			alias="user" />
+		<typeAlias
+			type="com.naver.www.common.dto.RestaurantANDMenuDTO" alias="RAMD" />
+		<typeAlias type="com.naver.www.common.dto.ReservationDTO"
+			alias="reservation" />
+		<typeAlias type="com.naver.www.common.dto.FoodDTO"
+			alias="food" />
+		<typeAlias
+			type="com.naver.www.common.dto.ResaurantReservationList" alias="rrl" />
+		<typeAlias type="com.naver.www.common.dto.ReviewDTO" alias="review" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappings/admin-mapping.xml" />
+		<mapper resource="mappings/restaurant-mapping.xml" />
+		<mapper resource="mappings/user-mapping.xml" />
+		<mapper resource="mappings/reservation-mapping.xml" />
+	</mappers>
+</configuration>

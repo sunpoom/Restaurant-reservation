@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="restaurant">
+
+	<insert id="register">
+		insert into
+		restaurants(admin_id,name,address,phone_number,email,cuisine_type,description,image_url)
+		value(#{admin_id},#{name},#{address},#{phone_number},#{email},#{cuisine_type},#{description},#{image_url})
+	</insert>
+
+	<select id="getRestaurantList" resultType="restaurant">
+		select
+		restaurant_id,name,address,phone_number,cuisine_type,ifnull(average_rating,0)
+		'average_rating' from
+		Restaurants where admin_id=#{admin_id} order by
+		restaurant_id
+		desc
+	</select>
+
+	<select id="getRestaurantType" parameterType="map"
+		resultType="restaurant">
+		select
+		restaurant_id,image_url,name,address,phone_number,description,ifnull(average_rating,0)
+		'average_rating' from
+		Restaurants where cuisine_type=#{cuisine_type}
+		order by #{sortname}
+		desc
+	</select>
+
+	<select id="getRestaurant" resultType="restaurant">
+		select *from
+		Restaurants
+		where
+		restaurant_id=#{restaurant_id}
+	</select>
+
+	<insert id="menuRegister">
+		insert into
+		Menus(restaurant_id,category,image_url,name,price,description)
+		value(#{restaurant_id},#{category},#{image_url},#{name},#{price},#{description})
+	</insert>
+
+	<select id="menuRestaurant" resultType="RAMD">
+		select r.restaurant_id
+		'restaurant_id' ,
+		r.name 'RestaurantName' ,r.address
+		'RestaurantAddress'
+		,r.phone_number
+		'RestaurantPhone'
+		,ifnull(r.average_rating,0) 'RestaurantAvg'
+		,r.description
+		'RestaurantDescription' ,r.image_url
+		'RestaurantImage_URL' ,m.category
+		'FoodCategory' ,m.name 'FoodName'
+		,m.price 'FoodPrice' ,m.description
+		'FoodDescription'
+		from restaurants r join menus m
+		where
+		r.restaurant_id=m.restaurant_id
+		and r.restaurant_id=#{restaurant_id}
+		order by FoodCategory
+	</select>
+
+	<update id="restaurantUpdateavg">
+		update restaurants set average_rating=round((select
+		avg(score) from reviews
+		where restaurant_id=#{restaurant_id}),1)
+		where
+		restaurant_id=#{restaurant_id};
+	</update>
+
+	<select id="viewList" resultType="review">
+		select *from reviews where
+		restaurant_id=#{restaurant_id} order by review_id
+		desc
+	</select>
+
+	<update id="restaurantmodify">
+		update restaurants set
+		name=#{name},address=#{address},phone_number=#{phone_number},email=#{email},cuisine_type=#{cuisine_type},
+		description=#{description},image_url=#{image_url} where
+		restaurant_id=#{restaurant_id}
+	</update>
+
+	<delete id="deleterestaurant">
+		delete from restaurants where
+		restaurant_id=#{restaurant_id}
+	</delete>
+
+	<select id="foodList" resultType="food" >
+		select category,image_url,name,price,description from menus where
+		restaurant_id=#{restaurant_id}
+	</select>
+
+</mapper>

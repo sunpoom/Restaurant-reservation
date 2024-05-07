@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LastProject
+Bundle-SymbolicName: LastProject
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: LastProject
+Export-Package: com.naver.www.admin,
+ com.naver.www.admin.dto,
+ com.naver.www.restaurant,
+ com.naver.www.restaurant.dto,
+ com.naver.www.user,
+ com.naver.www.user.dto,
+ mappings

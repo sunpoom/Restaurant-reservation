@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+
+	<select id="getAdmin" resultType="admin">
+		select *from RestaurantAdmins
+		where admin_id=#{admin_id} and password=#{password}
+	</select>
+
+	<insert id="register" parameterType="admin" >
+		insert into RestaurantAdmins
+		values(#{admin_id},#{name},#{email},#{Phone_number},#{password},#{role})
+	</insert>
+
+</mapper>
